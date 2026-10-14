@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+:root {
+  --blush: #fde8ee;
+  --blush-deep: #f9d3de;
+  --petal: #fff5f8;
+  --line: #f4c6d4;
+  --ink: #3b2a2f;
+  --ink-soft: #7a5f67;
+  --berry: #e0306e;
+  --berry-dark: #c21f5a;
+}
+
+@theme inline {
+  --color-blush: var(--blush);
+  --color-blush-deep: var(--blush-deep);
+  --color-petal: var(--petal);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-berry: var(--berry);
+  --color-berry-dark: var(--berry-dark);
+  --font-script: var(--font-script);
+  --font-note: var(--font-note);
+  --font-ui: var(--font-ui);
+}
+
+body {
+  background: var(--blush);
+  color: var(--ink);
+}
+
+/* Soft pink glow behind sections, like the mockup's dreamy backdrop */
+.dreamy {
+  background-color: var(--blush);
+  background-image: radial-gradient(circle at 15% 10%, rgba(255, 255, 255, 0.7), transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(249, 190, 210, 0.45), transparent 45%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
