@@ -16,7 +16,11 @@ export const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+export type Category = "Specialty Lattes" | "Matcha Lattes" | "Redbulls";
+
 export type Drink = { name: string; desc?: string; image: string; m: number; l: number };
+
+export type MenuDrink = Drink & { id: string; category: Category };
 
 export const lattes: Drink[] = [
   { name: "Chocobanana", desc: "Chocolate rim, banana base, mocha soft top, fresh banana & chocolate syrup.", image: "/images/d-chocobanana.jpg", m: 6, l: 8 },
@@ -44,3 +48,21 @@ export const redbulls: Drink[] = [
 ];
 
 export const seasonal = ["Pumpkin Cheesecake", "Pumpkin Cookie Butter", "Pumpkin Horchata", "Banana Bread Latte"];
+
+const slug = (name: string) => name.toLowerCase().replace(/[^a-z]+/g, "-").replace(/(^-|-$)/g, "");
+
+export const allDrinks: MenuDrink[] = [
+  ...lattes.map((d) => ({ ...d, id: slug(d.name), category: "Specialty Lattes" as const })),
+  ...matchas.map((d) => ({ ...d, id: slug(d.name), category: "Matcha Lattes" as const })),
+  ...redbulls.map((d) => ({ ...d, id: slug(d.name), category: "Redbulls" as const })),
+];
+
+export const milkOptions = [
+  { name: "Dairy", price: 0 },
+  { name: "Almond", price: 1 },
+  { name: "Oat", price: 1 },
+];
+
+export const extraOptions = [{ name: "Sugar Free", price: 0 }];
+
+export const money = (n: number) => `$${n.toFixed(2)}`;

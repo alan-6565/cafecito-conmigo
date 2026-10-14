@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { business, navLinks } from "@/lib/data";
+import { useCart } from "@/lib/cart";
 import { BagIcon, CloseIcon, InstagramIcon, MenuIcon, TikTokIcon } from "@/components/icons";
 
 export function Logo({ className = "w-20 h-20" }: { className?: string }) {
@@ -17,6 +18,7 @@ export function Logo({ className = "w-20 h-20" }: { className?: string }) {
 
 export default function Navbar() {
   const pathname = usePathname();
+  const { count } = useCart();
   const [open, setOpen] = useState(false);
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
@@ -49,8 +51,13 @@ export default function Navbar() {
           <Link href="/order" className="hidden sm:inline-flex rounded-full bg-berry hover:bg-berry-dark text-white font-semibold px-6 py-2.5 transition-colors">
             Order Now
           </Link>
-          <Link href="/order" aria-label="Order" className="p-2 text-berry">
+          <Link href="/checkout" aria-label={`Your order (${count} items)`} className="relative p-2 text-berry">
             <BagIcon className="w-6 h-6" />
+            {count > 0 && (
+              <span className="absolute top-0 right-0 grid place-items-center min-w-4.5 h-4.5 px-1 rounded-full bg-berry text-[10px] font-bold text-white">
+                {count}
+              </span>
+            )}
           </Link>
           <button onClick={() => setOpen((o) => !o)} aria-label={open ? "Close menu" : "Open menu"} className="lg:hidden p-2 text-ink">
             {open ? <CloseIcon className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}

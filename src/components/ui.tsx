@@ -61,3 +61,30 @@ export function DrinkCard({ drink, showDesc = false }: { drink: Drink; showDesc?
     </div>
   );
 }
+
+const STEPS = ["Select Drinks", "Pickup / Delivery", "Your Info", "Payment"];
+
+/** 1–4 progress tracker used on the order and checkout pages */
+export function Steps({ current }: { current: number }) {
+  return (
+    <ol className="mx-auto max-w-2xl grid grid-cols-4">
+      {STEPS.map((label, i) => {
+        const n = i + 1;
+        const on = n <= current;
+        return (
+          <li key={label} className="relative flex flex-col items-center text-center">
+            {i > 0 && <span className={`absolute top-4 right-1/2 w-full h-0.5 ${on ? "bg-berry" : "bg-line"}`} />}
+            <span
+              className={`relative z-10 grid place-items-center w-8 h-8 rounded-full text-sm font-bold ${
+                on ? "bg-berry text-white" : "bg-white border-2 border-line text-ink-soft"
+              }`}
+            >
+              {n < current ? "✓" : n}
+            </span>
+            <span className={`mt-2 text-[11px] sm:text-sm ${n === current ? "font-bold text-berry" : "text-ink-soft"}`}>{label}</span>
+          </li>
+        );
+      })}
+    </ol>
+  );
+}

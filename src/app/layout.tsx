@@ -3,6 +3,7 @@ import { Caveat, DM_Sans, Yellowtail } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { CartProvider } from "@/lib/cart";
 
 const yellowtail = Yellowtail({
   variable: "--font-script",
@@ -31,9 +32,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${yellowtail.variable} ${caveat.variable} ${dmSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col dreamy text-ink font-ui">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <CartProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
